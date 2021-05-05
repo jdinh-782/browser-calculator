@@ -19,32 +19,38 @@
         top: 215px;
     }
 
+    .numberButton:hover
+    {
+        background-color: transparent;
+    }
+
     .calculatorBackgroundColor
     {
         background-color: #adbbf0;
         padding: 20px;
         box-sizing: border-box;
         border-radius: 15px;
-        max-width: 525px;
+        width: 525px;
         display: block;
         border: 2px black;
         height: 450px;
         margin-left: 465px;
         margin-top: 75px;
-        position: relative;
+        position: fixed;
     }
 
     .calculatorScreen
     {
         background-color: #4c728398;
-        padding: 20px;
-        max-width: 445px;
-        height: 50px;
-        grid-column: 1 / -1;
+        top: 105px;
+        height: 85px;
+        width: 477px;
         display: flex;
+        font-size: 45px;
+        font-family: Arial;
+        position: fixed;
         margin-left: 485px;
-        margin-top: -420px;
-        position: relative;
+        text-align: right;
     }
 </style>
 
@@ -61,49 +67,237 @@
 
             <div class="calculatorBackgroundColor"></div>
 
-            <div class="calculatorScreen"></div>
-
+            <input type="text" class="calculatorScreen" id="result">
+            
             <div>
-                <button style="margin-left: 485px;" class="numberButton">7</button>
-                <button style="margin-left: 585px;" class="numberButton">8</button>
-                <button style="margin-left: 685px;" class="numberButton">9</button>
-                <button style="margin-left: 785px; padding: 15px 30px;" class="numberButton">C</button>
-                <button style="margin-left: 885px; padding: 15px 20px;" class="numberButton">AC</button>
+                <button value="7" style="margin-left: 485px;" class="numberButton" onclick="appendToOperation(this.value)">7</button>
+                <button value="8" style="margin-left: 585px;" class="numberButton" onclick="appendToOperation(this.value)">8</button>
+                <button value="9" style="margin-left: 685px;" class="numberButton" onclick="appendToOperation(this.value)">9</button>
+                <button style="margin-left: 785px; padding: 15px 30px;" class="numberButton" onclick="deleteFirstDigit()">C</button>
+                <button style="margin-left: 885px; padding: 15px 20px;" class="numberButton" onclick="clearResult()">AC</button>
             </div>
         
             <div>
-                <button style="margin-left: 485px; top: 290px;" class="numberButton">4</button>
-                <button style="margin-left: 585px; top: 290px;" class="numberButton">5</button>
-                <button style="margin-left: 685px; top: 290px;" class="numberButton">6</button>
-                <button style="margin-left: 785px; top: 290px;" id="multiplication" class="numberButton">×</button>
-                <button style="margin-left: 885px; top: 290px; padding: 15px 33px;" id="division" class="numberButton">÷</button>
+                <button value="4" style="margin-left: 485px; top: 290px;" class="numberButton" onclick="appendToOperation(this.value)">4</button>
+                <button value="5" style="margin-left: 585px; top: 290px;" class="numberButton" onclick="appendToOperation(this.value)">5</button>
+                <button value="6" style="margin-left: 685px; top: 290px;" class="numberButton" onclick="appendToOperation(this.value)">6</button>
+                <button value="*" style="margin-left: 785px; top: 290px;" id="multiplication" class="numberButton" onclick="appendToOperation(this.value)">×</button>
+                <button value="/" style="margin-left: 885px; top: 290px; padding: 15px 33px;" id="division" class="numberButton" onclick="appendToOperation(this.value)">÷</button>
             </div>
         
             <div>
-                <button style="margin-left: 485px; top: 365px;" class="numberButton">1</button>
-                <button style="margin-left: 585px; top: 365px;" class="numberButton">2</button>
-                <button style="margin-left: 685px; top: 365px;" class="numberButton">3</button>
-                <button style="margin-left: 785px; top: 365px" id="addition" class="numberButton">+</button>
-                <button style="margin-left: 885px; top: 365px;" id="subtraction" class="numberButton">−</button>
+                <button value="1" style="margin-left: 485px; top: 365px;" class="numberButton" onclick="appendToOperation(this.value)">1</button>
+                <button value="2" style="margin-left: 585px; top: 365px;" class="numberButton" onclick="appendToOperation(this.value)">2</button>
+                <button value="3" style="margin-left: 685px; top: 365px;" class="numberButton" onclick="appendToOperation(this.value)">3</button>
+                <button value="+" style="margin-left: 785px; top: 365px" id="addition" class="numberButton" onclick="appendToOperation(this.value)">+</button>
+                <button value="-" style="margin-left: 885px; top: 365px;" id="subtraction" class="numberButton" onclick="appendToOperation(this.value)">−</button>
             </div>
         
             <div>
-                <button style="margin-left: 485px; padding: 15px 32.5px; top: 440px" class="numberButton">±</button>
-                <button style="margin-left: 585px; top: 440px" class="numberButton">0</button>
-                <button style="margin-left: 685px; padding: 15px 36.5px; top: 440px" class="numberButton">.</button>
-                <button style="margin-left: 785px; padding: 15px 82px; top: 440px" id="operate" class="numberButton" onclick="operate()">=</button>
+                <button style="margin-left: 485px; padding: 15px 32.5px; top: 440px" class="numberButton" onclick="changeSign()">±</button>
+                <button value="0" style="margin-left: 585px; top: 440px" class="numberButton" onclick="appendToOperation(this.value)">0</button>
+                <button value="." style="margin-left: 685px; padding: 15px 36.5px; top: 440px" class="numberButton" onclick="appendToOperation(this.value)">.</button>
+                <button value="=" style="margin-left: 785px; padding: 15px 82px; top: 440px" class="numberButton" onclick="executeOperation()">=</button>
             </div>
             
             <script>
-                let num1 = 0;
-        
-                function operate()
+                //grab numbers and operator to show on screen
+                function appendToOperation(item)
                 {
-                    var x = document.getElementById("operate");
-                    alert(x.id);
-        
-                    //return a + b;
+                    let x = document.getElementById("result").value;
+                    let temp = false;
+
+                    if (x[0] == '-')
+                        x = x.slice(1);
+
+                    if (item == '+' || item == '-' || item == '*' || item == '/')
+                        if (x.includes('+') || x.includes('-') || x.includes('*') || x.includes('/'))
+                            console.log('cannot append more than one operator');
+                        else
+                            temp = true;
+                    else if (x.value == 0)
+                        document.getElementById("result").value = item;
+                    else if ((item >= 0 && item <= 9) || (item == '.'))
+                        document.getElementById("result").value += item; 
+                    if (temp)
+                        document.getElementById("result").value += item; 
                 }
+
+                //delete the first digit
+                function deleteFirstDigit()
+                {
+                    var x = document.getElementById("result").value;
+
+                    if (x.includes("+") || x.includes("-") || x.includes("*") || x.includes("/") || x.includes("="))
+                    {
+                        console.log("cannot delete first digit during operation");
+                    }
+
+                    else
+                    {
+                        if (x < 10 && x[0] != '-')
+                            document.getElementById("result").value = 0;
+
+                        else
+                        {
+                            let updatedNum;
+                            let temp = false;
+                            
+                            //check if first element is a negative sign
+                            if (x[0] == '-')
+                            {
+                                x = x.slice(1);
+                                updatedNum = '-';
+                                temp = true;
+                            }
+                                
+                            var d = 1;
+                            var y = x;
+
+                            while (y >= 10)
+                            {
+                                y /= 10;
+                                d *= 10;
+                            }
+
+                            if (temp)
+                                updatedNum += x % d;
+                            else
+                                updatedNum = x % d;
+                            
+                            document.getElementById("result").value = updatedNum; 
+                        }
+                    }
+                }
+
+                //change +/- sign
+                function changeSign()
+                {
+                    var x = document.getElementById("result").value;
+                    var y = '-';
+
+                    if (x[0] != '-' && x != 0)
+                    {
+                        y += x; 
+                        document.getElementById("result").value = y;
+                    }
+                    else if (x[0] == '-' && x != 0)
+                    {
+                        var updatedNum = x.slice(1);
+                        document.getElementById("result").value = updatedNum;
+                    }   
+                }
+
+                //clear the display
+                function clearResult()
+                {
+                    document.getElementById("result").value = "";
+                }
+
+                //execute the operation
+                function executeOperation()
+                {
+                    var num1 = '';
+                    var num2 = '';
+                    var operation = '';
+                    let solution = 0;
+                    var temp = false;
+                    var negative = false;
+
+                    document.getElementById("result").value += '=';
+                    var x = document.getElementById("result").value;
+
+                    if (x[0] == '-')
+                    {
+                        x = x.slice(1);
+                        negative = true;
+                    }
+                        
+
+                    for (let i = 0; i < x.length; i++)
+                    {
+                        if (((x[i] >= 0 && x[i] <= 9) || (x[i] == '.')) && temp)
+                        {
+                            num2 += x[i];
+                        }
+
+                        if (((x[i] >= 0 && x[i] <= 9) || (x[i] == '.')) && !temp)
+                        {
+                            num1 += x[i];
+                        }
+                        
+                        if (x[i] == '+' || x[i] == '-' || x[i] == '*' || x[i] == '/' || x[i] == '=')
+                        {
+                            if (temp)
+                            {
+                                if (((num1.split('.').length - 1) > 1) || ((num2.split('.').length - 1) > 1))
+                                {
+                                    console.log("overuse of decimal operators")
+                                    document.getElementById("result").value = ""
+                                    return;
+                                }
+                                    
+                                num1 = parseFloat(num1, 10);
+                                num2 = parseFloat(num2, 10);
+
+                                if (operation == '+')
+                                {
+                                    if (negative)
+                                    {
+                                        solution = num2 - num1;
+                                        negative = false;
+                                    }
+                                        
+                                    else
+                                        solution = num1 + num2;
+                                }
+                                else if (operation == '-')
+                                {
+                                    if (negative)
+                                    {
+                                        solution = num1 + num2;
+                                        solution *= -1;
+                                        negative = false;
+                                    }
+                                    
+                                    else
+                                        solution = num1 - num2;
+                                }
+                                else if (operation == '*')
+                                {
+                                    solution = num1 * num2;
+                                    if (negative)
+                                    {
+                                        solution *= -1;
+                                        negative = false;
+                                    }
+                                }
+                                else if (operation == '/')
+                                {
+                                    solution = num1 / num2;
+                                    if (negative)
+                                    {
+                                        solution *= -1;
+                                        negative = false;
+                                    }
+                                }
+                                num1 = '';
+                                num2 = '';
+                                temp = false;
+                                //alert(solution);
+                            }
+                            operation = x[i];
+                            temp = true;
+                        }
+                    }
+
+                   
+
+                    document.getElementById("result").value = solution;
+                    //console.log(num1 + '\n' + num2 + '\n' + operation);
+                    //console.log(solution);
+                }  
+                    
             </script>
         </main>
     </body>
