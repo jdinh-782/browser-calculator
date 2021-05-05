@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<style>
+    body
+    {
+        background-image: url("new york.jpg");
+    }
+
+    .numberButton
+    {
+        padding: 15px 32px;
+        font-family: Arial;
+        font-size: 30px;
+        text-align: center;
+        position: fixed;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: auto;
+        top: 215px;
+    }
+
+    .calculatorBackgroundColor
+    {
+        background-color: #adbbf0;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 15px;
+        max-width: 525px;
+        display: block;
+        border: 2px black;
+        height: 450px;
+        margin-left: 465px;
+        margin-top: 75px;
+        position: relative;
+    }
+
+    .calculatorScreen
+    {
+        background-color: #4c728398;
+        padding: 20px;
+        max-width: 445px;
+        height: 50px;
+        grid-column: 1 / -1;
+        display: flex;
+        margin-left: 485px;
+        margin-top: -420px;
+        position: relative;
+    }
+</style>
+
+
+<html lang="en">
+    <head>
+        <title>Calculator</title>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <main>
+            <!--<h1>Calculator</h1>-->
+
+            <div class="calculatorBackgroundColor"></div>
+
+            <div class="calculatorScreen"></div>
+
+            <div>
+                <button style="margin-left: 485px;" class="numberButton">7</button>
+                <button style="margin-left: 585px;" class="numberButton">8</button>
+                <button style="margin-left: 685px;" class="numberButton">9</button>
+                <button style="margin-left: 785px; padding: 15px 30px;" class="numberButton">C</button>
+                <button style="margin-left: 885px; padding: 15px 20px;" class="numberButton">AC</button>
+            </div>
+        
+            <div>
+                <button style="margin-left: 485px; top: 290px;" class="numberButton">4</button>
+                <button style="margin-left: 585px; top: 290px;" class="numberButton">5</button>
+                <button style="margin-left: 685px; top: 290px;" class="numberButton">6</button>
+                <button style="margin-left: 785px; top: 290px;" id="multiplication" class="numberButton">×</button>
+                <button style="margin-left: 885px; top: 290px; padding: 15px 33px;" id="division" class="numberButton">÷</button>
+            </div>
+        
+            <div>
+                <button style="margin-left: 485px; top: 365px;" class="numberButton">1</button>
+                <button style="margin-left: 585px; top: 365px;" class="numberButton">2</button>
+                <button style="margin-left: 685px; top: 365px;" class="numberButton">3</button>
+                <button style="margin-left: 785px; top: 365px" id="addition" class="numberButton">+</button>
+                <button style="margin-left: 885px; top: 365px;" id="subtraction" class="numberButton">−</button>
+            </div>
+        
+            <div>
+                <button style="margin-left: 485px; padding: 15px 32.5px; top: 440px" class="numberButton">±</button>
+                <button style="margin-left: 585px; top: 440px" class="numberButton">0</button>
+                <button style="margin-left: 685px; padding: 15px 36.5px; top: 440px" class="numberButton">.</button>
+                <button style="margin-left: 785px; padding: 15px 82px; top: 440px" id="operate" class="numberButton" onclick="operate()">=</button>
+            </div>
+            
+            <script>
+                let num1 = 0;
+        
+                function operate()
+                {
+                    var x = document.getElementById("operate");
+                    alert(x.id);
+        
+                    //return a + b;
+                }
+            </script>
+        </main>
+    </body>
+
+</html>
